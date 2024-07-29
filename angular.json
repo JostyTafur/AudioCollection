@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "AudioCollection": {
+    "audio-collection": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -48,7 +48,13 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true
+              "sourceMap": true,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.development.ts"
+                }
+              ]
             }
           },
           "defaultConfiguration": "production"
@@ -57,10 +63,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "AudioCollection:build:production"
+              "buildTarget": "audio-collection:build:production"
             },
             "development": {
-              "buildTarget": "AudioCollection:build:development"
+              "buildTarget": "audio-collection:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -91,5 +97,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
