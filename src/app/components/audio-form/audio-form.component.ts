@@ -87,6 +87,7 @@ export class AudioFormComponent {
   }
 
   onSubmit() {
+    this.loading = true;
     if (!this.objectForm.invalid) {
       const fonema = this.objectForm.get('fonema')?.value?.toLowerCase();
       const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
@@ -101,6 +102,7 @@ export class AudioFormComponent {
         this.storageRef = ref(this.storage, path + this.audioFile!.name);
       }
       uploadBytesResumable(this.storageRef, this.audioFile!).then(() => {
+        this.loading = false;
         this.router.navigate(['/successful']);
       });
     }
