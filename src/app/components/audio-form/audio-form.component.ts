@@ -15,6 +15,13 @@ export interface TipoTrastorno {
   label: string;
 }
 
+export interface Segmento {
+  id: number;
+  value: string;
+  label: string;
+  fonemas: string[];
+}
+
 @Component({
   selector: 'app-audio-form',
   templateUrl: './audio-form.component.html',
@@ -29,11 +36,14 @@ export class AudioFormComponent {
   audioSrcURL: string | null = null;
   audioElement: any;
   storageRef: any;
+  listFonemas: string[] = [];
+  otroFonema: boolean = false;
 
   objectForm = new FormGroup({
-    fonema: new FormControl('', [Validators.required, Validators.maxLength(1)]),
+    fonema: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     tipoTrastorno: new FormControl('', [Validators.required]),
     palabra: new FormControl('', [Validators.required]),
+    segmento: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
   });
 
@@ -41,15 +51,109 @@ export class AudioFormComponent {
     { id: 1, value: 'omision', label: 'Omisión' },
     { id: 2, value: 'distorsion', label: 'Distorsión' },
     { id: 3, value: 'sustitución', label: 'Sustitución' },
+    { id: 4, value: 'logrado', label: 'Logrado' },
   ];
 
-  constructor(private storage: Storage, private domSanitizer: DomSanitizer, private router: Router) {}
+  segmentos: Segmento[] = [
+    { id: 1, value: 'nasales', label: 'Nasales', fonemas: ['m', 'n', 'ñ'] },
+    {
+      id: 2,
+      value: 'oclusivas_sordas',
+      label: 'Oclusivas Sordas',
+      fonemas: ['p', 't', 'k'],
+    },
+    {
+      id: 3,
+      value: 'oclusivas_sonoras',
+      label: 'Oclusivas Sonoras',
+      fonemas: ['b', 'd', 'g'],
+    },
+    { id: 4, value: 'laterales', label: 'Laterales', fonemas: ['l'] },
+    {
+      id: 5,
+      value: 'fricativas',
+      label: 'Fricativas',
+      fonemas: ['f', 's', 'x'],
+    },
+    { id: 6, value: 'africada', label: 'Africada', fonemas: ['ch'] },
+    {
+      id: 7,
+      value: 'roticas_percusivas',
+      label: 'Roticas Percusivas',
+      fonemas: ['r'],
+    },
+    {
+      id: 8,
+      value: 'roticas_vibrantes',
+      label: 'Roticas Vibrantes',
+      fonemas: ['rr'],
+    },
+    {
+      id: 9,
+      value: 'grupos_consonanticos_laterales',
+      label: 'Grupos Consonanticos Laterales',
+      fonemas: ['pl', 'bl', 'tl', 'dl', 'cl', 'gl'],
+    },
+    {
+      id: 10,
+      value: 'grupos_consonanticos_centrales',
+      label: 'Grupos Consonanticos Centrales',
+      fonemas: ['pr', 'br', 'fr', 'tr', 'dr', 'cr', 'gr'],
+    },
+    {
+      id: 11,
+      value: 'vocales',
+      label: 'Vocales',
+      fonemas: ['a', 'e', 'i', 'o', 'u'],
+    },
+    {
+      id: 12,
+      value: 'diptongos',
+      label: 'Diptongos',
+      fonemas: ['ua', 'io', 'ie', 'ue', 'ia', 'au', 'ei', 'ai', 'ui'],
+    },
+  ];
+
+  constructor(
+    private storage: Storage,
+    private domSanitizer: DomSanitizer,
+    private router: Router
+  ) {}
+
+  onChangeSegmento(event: any) {
+    console.log(event.target.value);
+    if (event.target.value) {
+      const segmento = this.segmentos.find(
+        (segmento) => segmento.value === event.target.value
+      ) || { fonemas: [] };
+      this.listFonemas = segmento.fonemas;
+    }
+  }
+
+  changeOtrosOption() {
+    if (this.objectForm.get('fonema')?.value == 'otros') {
+      this.otroFonema = true;
+      this.objectForm.get('fonema')?.setValue('');
+    } else {
+      this.otroFonema = false;
+    }
+  }
+
+  changeMethodFile() {
+    this.upload = true;
+    this.objectForm.get('file')?.setValue(null);
+  }
+
+  changeMethodRecord() {
+    this.upload = false;
+    this.objectForm.get('file')?.setValue(null);
+  }
 
   sanitize(url: string) {
     return this.domSanitizer.bypassSecurityTrustUrl(url);
   }
 
-  onChangeUpload(event: any) {
+  onFileUpload(event: any) {
     this.fileUpload = true;
     this.audioFile = event.target.files[0];
     this.objectForm.get('file')?.setValue(this.audioFile?.name!);
@@ -89,9 +193,11 @@ export class AudioFormComponent {
   onSubmit() {
     this.loading = true;
     if (!this.objectForm.invalid) {
+      const segmento = this.objectForm.get('segmento')?.value;
       const fonema = this.objectForm.get('fonema')?.value?.toLowerCase();
       const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
-      const path = 'audios/' + fonema + '/' + tipoTrastorno + '/';
+      const path =
+        'audios/' + segmento + '/' + fonema + '/' + tipoTrastorno + '/';
 
       if (this.upload) {
         this.storageRef = ref(
