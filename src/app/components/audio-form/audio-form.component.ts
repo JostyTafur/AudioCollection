@@ -42,7 +42,8 @@ export class AudioFormComponent {
   objectForm = new FormGroup({
     fonema: new FormControl('', [Validators.required, Validators.maxLength(2)]),
     tipoTrastorno: new FormControl('', [Validators.required]),
-    palabra: new FormControl('', [Validators.required]),
+    palabraCorrecta: new FormControl('', [Validators.required]),
+    palabraPronunciada: new FormControl('', [Validators.required]),
     segmento: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
   });
@@ -55,7 +56,11 @@ export class AudioFormComponent {
   ];
 
   segmentos: Segmento[] = [
-    { id: 1, value: 'nasales', label: 'Nasales', fonemas: ['m', 'n', 'ñ'] },
+    { id: 1, 
+      value: 'nasales', 
+      label: 'Nasales', 
+      fonemas: ['m', 'n', 'ñ'] 
+    },
     {
       id: 2,
       value: 'oclusivas_sordas',
@@ -68,14 +73,22 @@ export class AudioFormComponent {
       label: 'Oclusivas Sonoras',
       fonemas: ['b', 'd', 'g'],
     },
-    { id: 4, value: 'laterales', label: 'Laterales', fonemas: ['l'] },
+    { id: 4, 
+      value: 'laterales', 
+      label: 'Laterales', 
+      fonemas: ['l'] 
+    },
     {
       id: 5,
       value: 'fricativas',
       label: 'Fricativas',
       fonemas: ['f', 's', 'x'],
     },
-    { id: 6, value: 'africada', label: 'Africada', fonemas: ['ch'] },
+    { id: 6, 
+      value: 'africada', 
+      label: 'Africada', 
+      fonemas: ['ch'] 
+    },
     {
       id: 7,
       value: 'roticas_percusivas',
@@ -178,16 +191,18 @@ export class AudioFormComponent {
   generateFileRecordedName(): string {
     const fonema = this.objectForm.get('fonema')?.value?.toLowerCase();
     const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
-    const palabras = this.objectForm.get('palabra')?.value;
-    return `${fonema}_${tipoTrastorno}_${palabras}.wav`;
+    const palabraCorrecta = this.objectForm.get('palabraCorrecta')?.value;
+    const palabraPronunciada = this.objectForm.get('palabraPronunciada')?.value;
+    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}.wav`;
   }
 
   generateNewFileName(file: File): string {
     const fonema = this.objectForm.get('fonema')?.value?.toLowerCase();
     const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
-    const palabras = this.objectForm.get('palabra')?.value;
+    const palabraCorrecta = this.objectForm.get('palabraCorrecta')?.value;
+    const palabraPronunciada = this.objectForm.get('palabraPronunciada')?.value;
     const extension = file.name.split('.').pop();
-    return `${fonema}_${tipoTrastorno}_${palabras}.${extension}`;
+    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}.${extension}`;
   }
 
   onSubmit() {

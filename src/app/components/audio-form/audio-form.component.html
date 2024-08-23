@@ -66,7 +66,7 @@
                     </div>
                 }
             </div>
-            <div class="">
+            <div class="mb-4">
                 <label for="trastorno" class="block mb-2 text-sm font-medium text-gray-900 ">Selecciona el tipo de trastorno de sonido:</label>
                 <select formControlName="tipoTrastorno" id="trastorno" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
                     @for(item of selectTipoTrastorno; track $index){
@@ -75,10 +75,13 @@
                 </select>
             </div>
             <div class="mb-4">
-                <label for="palabra" class="block mb-2 text-sm font-medium text-gray-900">Palabra pronunciada:</label>
-                <input formControlName="palabra" type="text" id="palabra" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ingresa la palabra pronunciada">
+                <label for="palabraCorrecta" class="block mb-2 text-sm font-medium text-gray-900">Palabra correcta:</label>
+                <input formControlName="palabraCorrecta" type="text" id="palabraCorrecta" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ingresa la palabra correcta">
             </div>
-            
+            <div class="mb-4">
+                <label for="palabraPronunciada" class="block mb-2 text-sm font-medium text-gray-900">Palabra pronunciada:</label>
+                <input formControlName="palabraPronunciada" type="text" id="palabraPronunciada" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ingresa la palabra pronunciada">
+            </div>
             <div class="my-4 bg-white rounded-lg border border-slate-400 w-full">
                 @if (upload) {
                     <div class="m-2">
