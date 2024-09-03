@@ -193,7 +193,8 @@ export class AudioFormComponent {
     const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
     const palabraCorrecta = this.objectForm.get('palabraCorrecta')?.value;
     const palabraPronunciada = this.objectForm.get('palabraPronunciada')?.value;
-    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}.wav`;
+    const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
+    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}_${currentTime}.wav`;
   }
 
   generateNewFileName(file: File): string {
@@ -201,8 +202,9 @@ export class AudioFormComponent {
     const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
     const palabraCorrecta = this.objectForm.get('palabraCorrecta')?.value;
     const palabraPronunciada = this.objectForm.get('palabraPronunciada')?.value;
+    const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false });
     const extension = file.name.split('.').pop();
-    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}.${extension}`;
+    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}_${currentTime}.${extension}`;
   }
 
   onSubmit() {
