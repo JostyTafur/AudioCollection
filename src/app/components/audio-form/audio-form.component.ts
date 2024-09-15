@@ -82,7 +82,7 @@ export class AudioFormComponent {
       id: 5,
       value: 'fricativas',
       label: 'Fricativas',
-      fonemas: ['f', 's', 'x'],
+      fonemas: ['f', 's', 'j', 'z', 'x'],
     },
     { id: 6, 
       value: 'africada', 
