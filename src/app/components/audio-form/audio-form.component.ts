@@ -76,7 +76,7 @@ export class AudioFormComponent {
     { id: 4, 
       value: 'laterales', 
       label: 'Laterales', 
-      fonemas: ['l'] 
+      fonemas: ['l', 'll'] 
     },
     {
       id: 5,
