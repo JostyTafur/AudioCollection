@@ -45,6 +45,7 @@ export class AudioFormComponent {
     palabraCorrecta: new FormControl('', [Validators.required]),
     palabraPronunciada: new FormControl('', [Validators.required]),
     segmento: new FormControl('', [Validators.required]),
+    posicion: new FormControl('', [Validators.required]),
     file: new FormControl('', [Validators.required]),
   });
 
@@ -193,8 +194,9 @@ export class AudioFormComponent {
     const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
     const palabraCorrecta = this.objectForm.get('palabraCorrecta')?.value;
     const palabraPronunciada = this.objectForm.get('palabraPronunciada')?.value;
+    const posicion = this.objectForm.get('posicion')?.value;
     const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false }).replace(/:/g, '-');
-    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}_${currentTime}.wav`;
+    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}_${posicion}_${currentTime}.wav`;
   }
 
   generateNewFileName(file: File): string {
@@ -202,9 +204,10 @@ export class AudioFormComponent {
     const tipoTrastorno = this.objectForm.get('tipoTrastorno')?.value;
     const palabraCorrecta = this.objectForm.get('palabraCorrecta')?.value;
     const palabraPronunciada = this.objectForm.get('palabraPronunciada')?.value;
+    const posicion = this.objectForm.get('posicion')?.value;
     const currentTime = new Date().toLocaleTimeString('en-US', { hour12: false }).replace(/:/g, '-');
     const extension = file.name.split('.').pop();
-    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}_${currentTime}.${extension}`;
+    return `${fonema}_${tipoTrastorno}_${palabraCorrecta}_${palabraPronunciada}_${posicion}_${currentTime}.${extension}`;
   }
 
   onSubmit() {

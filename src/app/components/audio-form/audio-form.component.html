@@ -82,6 +82,29 @@
                 <label for="palabraPronunciada" class="block mb-2 text-sm font-medium text-gray-900">Palabra pronunciada:</label>
                 <input formControlName="palabraPronunciada" type="text" id="palabraPronunciada" aria-describedby="helper-text-explanation" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 " placeholder="Ingresa la palabra pronunciada">
             </div>
+            <div>
+                <label class="block mb-1 text-sm font-medium text-gray-900">Posicion del fonema</label>
+                <div class="inline-flex w-full rounded-md shadow-sm  mb-4" role="group">
+                    <label for="inicial"
+                            class="w-full px-4 py-2 text-sm bg-white text-gray-900 border border-slate-400 rounded-s-lg 
+                            flex items-center gap-2">
+                        <input type="radio" id="inicial" value="inicial" formControlName="posicion" class=""/>
+                        Inicial
+                    </label>
+                    <label for="medio"
+                            class="w-full px-4 py-2 text-sm bg-white text-gray-900 border border-slate-400
+                            flex items-center gap-2">
+                        <input type="radio" id="medio" value="medio" formControlName="posicion" class=""/>
+                        Medio
+                    </label>
+                    <label for="final"
+                            class="w-full px-4 py-2 text-sm bg-white text-gray-900 border border-slate-400 rounded-e-lg
+                                    flex items-center gap-2">
+                        <input type="radio" id="final" value="final" formControlName="posicion" class=""/>
+                        Final
+                    </label>
+                </div>
+            </div>
             <div class="my-4 bg-white rounded-lg border border-slate-400 w-full">
                 @if (upload) {
                     <div class="m-2">
